@@ -23,19 +23,5 @@ visibility_risk = {'Daylight': 1, 'Dawn': 2, 'Dusk': 3, 'Dark - Street Lights On
 
 df['Environmental_Risk'] = df['WEATHER'].map(weather_risk) + df['LIGHTCOND'].map(visibility_risk) + df['ROADCOND'].map(roadcond_risk)
 
-# Extract month from INCDATE and map to season
-df['INCDATE'] = pd.to_datetime(df['INCDATE'])
-df['Month'] = df['INCDATE'].dt.month
-
-season_mapping = {
-    12: 'Winter', 1: 'Winter', 2: 'Winter',
-    3: 'Spring', 4: 'Spring', 5: 'Spring',
-    6: 'Summer', 7: 'Summer', 8: 'Summer',
-    9: 'Fall', 10: 'Fall', 11: 'Fall'
-}
-
-df['Season'] = df['Month'].map(season_mapping)
-
-df['Weekday'] = df['INCDATE'].dt.dayofweek
 
 df.to_csv(new_csv_file_path, index=False)
